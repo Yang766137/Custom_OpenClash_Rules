@@ -91,9 +91,20 @@ dns:
 proxy-providers:
   provider1:
     type: http
-    url: "${airport1_url}"
+    url: "url"
     interval: 3600
     path: ./proxy_provider/provider1.yaml
+    proxy: DIRECT
+    header:
+      User-Agent:
+      - "clash.meta"
+      - "mihomo/1.18.3"
+
+    provider2:
+    type: http
+    url: "url"
+    interval: 3600
+    path: ./proxy_provider/provider2.yaml
     proxy: DIRECT
     header:
       User-Agent:
