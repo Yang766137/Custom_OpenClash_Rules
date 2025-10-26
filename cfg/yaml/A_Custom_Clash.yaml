@@ -17,7 +17,7 @@ proxy-providers:
   provider2:
     url: "url"
     type: http
-    #interval: 86400
+    interval: 86400
     health-check:
       enable: true
       url: https://www.gstatic.com/generate_204
@@ -46,6 +46,11 @@ proxy-providers:
 proxies:
   - {name: 直连, type: direct}
   - {name: 拒绝, type: reject}
+
+# 代理提供者模板 - 订阅源基础配置
+BaseProvider: &BaseProvider {type: http, interval: 86400, proxy: DIRECT, health-check: {enable: true, url: 'https://www.google.com/generate_204', interval: 300}, 
+filter: '^(?!.*(群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Channel|Author))'}
+
 
  
 # 出站策略，根据自己情况调整每个策略里分组排序，增删都可以，比如把美国自动放到第一个，比如删除香港故转，注意别漏掉表情逗号等。
@@ -83,16 +88,22 @@ proxy-groups:
   - {name: 🔯 日本故转, type: fallback, tolerance: 20, interval: 300, proxies: [🇯🇵 日本手动, ♻️ 日本自动], }
   - {name: 🔯 新加坡故转, type: fallback, tolerance: 20, interval: 300, proxies: [🇸🇬 新加坡手动, ♻️ 新加坡自动]}
   - {name: 🔯 美国故转, type: fallback, tolerance: 20, interval: 300, proxies: [🇺🇲 美国手动, ♻️ 美国自动]}
-  - {name: ♻️ 香港自动, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(港|HK|(?i)Hong))^((?!(台|日|韩|新|深|美)).)*$"}
-  - {name: ♻️ 日本自动, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(日本|JP|(?i)Japan))^((?!(港|台|韩|新|美)).)*$" }
+  - {name: 🔯 台湾故转, type: fallback, tolerance: 20, interval: 300, proxies: [🇺🇲 台湾手动, ♻️ 台湾自动]}
+  - {name: 🔯 韩国故转, type: fallback, tolerance: 20, interval: 300, proxies: [🇺🇲 韩国手动, ♻️ 韩国自动]}
+  - {name: ♻️ 香港自动, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(港|HK|(?i)Hong))^((?!(台|日|韩|新|深|美)).)*$" }
+  - {name: ♻️ 日本自动, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(?i)(日|🇯🇵|JP|Japan|NRT|HND|KIX|CTS|FUK))(?!.*(尼|排除2|5x)).*$" }
   - {name: ♻️ 新加坡自动, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(新加坡|坡|狮城|SG|Singapore))^((?!(港|台|韩|日|美)).)*$" }
   - {name: ♻️ 美国自动, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(美|US|(?i)States|America))^((?!(港|台|日|韩|新)).)*$"}
+  - {name: ♻️ 台湾自动, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(?i)(台|🇼🇸|🇹🇼|TW|tai|TPE|TSA|KHH))(?!.*(排除1|排除2|5x)).*$"}
+  - {name: ♻️ 韩国自动, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(?i)(韩|🇰🇷|韓|首尔|南朝鲜|KR|KOR|Korea|South))(?!.*(排除1|排除2|5x)).*$" }
   - {name: 🇭🇰 香港手动, type: select, include-all: true, filter: "(?i)港|hk|hongkong|hong kong"}
   - {name: 🇯🇵 日本手动, type: select, include-all: true, filter: "(?i)日本|jp|japan"}
-  - {name: 🇸🇬 新加坡手动, type: select, include-all: true, filter: "(?i)新加坡|坡|狮城|SG|Singapore"}
-  - {name: 🇺🇲 美国手动, type: select, include-all: true, filter: "(?i)美|us|unitedstates|united states"}
-  - {name: 🌐 全部手动, type: select, include-all: true,filter: "^((?!(直连|拒绝)).)*$"}
-  - {name: ♻️ 自动选择, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "^((?!(直连|拒绝)).)*$"}
+  - {name: 🇸🇬 新加坡手动, type: select, include-all: true, filter: "(?i)新加坡|坡|狮城|SG|Singapore" }
+  - {name: 🇺🇲 美国手动, type: select, include-all: true, filter: "(?i)美|us|unitedstates|united states" }
+  - {name: 🇹🇼 台湾手动, type: select, include-all: true, filter: "(?=.*(?i)(台|🇼🇸|🇹🇼|TW|tai|TPE|TSA|KHH))(?!.*(排除1|排除2|5x)).*$" }  
+  - {name: 🇰🇷 韩国手动, type: select, include-all: true, filter: "(?=.*(?i)(韩|🇰🇷|韓|首尔|南朝鲜|KR|KOR|Korea|South))(?!.*(排除1|排除2|5x)).*$" }
+  - {name: 🌐 全部手动, type: select, include-all: true,filter: "^((?!(直连|拒绝)).)*$" }
+  - {name: ♻️ 自动选择, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "^((?!(直连|拒绝)).)*$" }
 
 
 
