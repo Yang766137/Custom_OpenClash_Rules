@@ -36,12 +36,14 @@ proxies:
 
  
 # 出站策略，根据自己情况调整每个策略里分组排序，增删都可以，比如把美国自动放到第一个，比如删除香港故转，注意别漏掉表情逗号等。
+# type: select, proxies: [🎯 全球直连, 🔯 新加坡故转, 🔯 香港故转, 🔯 日本故转, 🔯 美国故转, ♻️ 香港自动, 🌐 全部手动]
 
-pr: &pr {type: select, proxies: [🔯 新加坡故转, 🔯 香港故转, 🔯 日本故转, 🔯 美国故转,  ♻️ 自动选择, 🇭🇰 香港手动, 🇯🇵 日本手动, 🇸🇬 新加坡手动, 🇺🇲 美国手动,🚀 手动选择, 🌐 全部手动, 直连, 拒绝]}
+pr: &pr {type: select, proxies: [🔯 新加坡故转, 🔯 香港故转, 🔯 日本故转, 🔯 美国故转, ♻️ 香港自动, ♻️ 自动选择, 🚀 手动选择, 🌐 全部手动, 🎯 全球直连, 拒绝]}
+dir: &dir {type: select, proxies: [🎯 全球直连, 🔯 新加坡故转, 🔯 香港故转, 🔯 日本故转, 🔯 美国故转, ♻️ 香港自动, 🌐 全部手动]}
 proxy-groups:
-  - {name: 🐟 漏网之鱼, type: select, proxies: [♻️ 香港自动, 直连, ♻️ 日本自动, ♻️ 新加坡自动, ♻️ 美国自动, ♻️ 自动选择,🌐 全部手动]}
+  - {name: 🐟 漏网之鱼, type: select, proxies: [🎯 全球直连, 🔯 新加坡故转, 🔯 香港故转, 🔯 日本故转, 🔯 美国故转, ♻️ 香港自动, 🌐 全部手动]}
 
-  - {name: 🚀 手动选择, type: select, proxies: [🔯 新加坡故转, 🔯 香港故转, 🔯 日本故转, 🔯 美国故转, ♻️ 香港自动, ♻️ 日本自动, ♻️ 新加坡自动, ♻️ 美国自动, ♻️ 自动选择, 🌐 全部手动, 直连, 拒绝]}
+  - {name: 🚀 手动选择, type: select, proxies: [♻️ 香港自动, ♻️ 日本自动, ♻️ 新加坡自动, ♻️ 美国自动, ♻️ 自动选择}
   - {name: ♻️ 自动选择, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "^((?!(直连|拒绝)).)*$"}
   - {name: 💬 即时通讯,  <<: *pr}
   - {name: 🌐 社交媒体,  <<: *pr}
@@ -49,26 +51,21 @@ proxy-groups:
   - {name: 🤖 Copilot,  <<: *pr}
   - {name: 🤖 AI服务,  <<: *pr}
   - {name: 🚀 GitHub,  <<: *pr}
-  - {name: 🚀 测速工具,  <<: *pr}
-  - {name: 🎮 Steam,  <<: *pr}
+  - {name: 🎮 游戏平台,  <<: *dir}
+  - {name: 🎮 Steam,  <<: *dir}
   - {name: 📹 YouTube,  <<: *pr}
-  - {name: 🍎 苹果服务,  <<: *pr}
-  - {name: Ⓜ️ 微软服务,  <<: *pr}
+  - {name: 🍎 苹果服务,  <<: *dir}
+  - {name: Ⓜ️ 微软服务,  <<: *dir}
   - {name: 📢 谷歌FCM,  <<: *pr}
   - {name: 🇬 谷歌服务,  <<: *pr}
   - {name: 🎶 TikTok,  <<: *pr}
   - {name: 🎻 Spotify,  <<: *pr}
-  - {name: 🎮 游戏平台,  <<: *pr}
   - {name: 🌎 国外媒体,  <<: *pr}
   - {name: 🛒 国外电商,  <<: *pr}
   - {name: 🎯 全球直连, type: select, proxies: [直连]}
-  - {name: 🔀 非标端口, type: select, proxies: [🐟 漏网之鱼, 直连]}
+  - {name: 🔀 非标端口, type: select, proxies: [🐟 漏网之鱼, 🎯 全球直连]}
 
-
-  - {name: 🇭🇰 香港手动, type: select, include-all: true, filter: "(?i)港|hk|hongkong|hong kong"}
-  - {name: 🇯🇵 日本手动, type: select, include-all: true, filter: "(?i)日|jp|japan"}
-  - {name: 🇸🇬 新加坡手动, type: select, include-all: true, filter: "(?i)新加坡|坡|狮城|SG|Singapore"}
-  - {name: 🇺🇲 美国手动, type: select, include-all: true, filter: "(?i)美|us|unitedstates|united states"}
+ 
   - {name: 🔯 香港故转, type: fallback, include-all: true, tolerance: 20, interval: 300, proxies: [🇭🇰 香港手动, ♻️ 香港自动]}
   - {name: 🔯 日本故转, type: fallback, include-all: true, tolerance: 20, interval: 300, proxies: [🇯🇵 日本手动, ♻️ 日本自动]}
   - {name: 🔯 新加坡故转, type: fallback, include-all: true, tolerance: 20, interval: 300, proxies: [🇸🇬 新加坡手动, ♻️ 新加坡自动]}
@@ -77,6 +74,10 @@ proxy-groups:
   - {name: ♻️ 日本自动, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(日|JP|(?i)Japan))^((?!(港|台|韩|新|美)).)*$" }
   - {name: ♻️ 新加坡自动, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(新加坡|坡|狮城|SG|Singapore))^((?!(港|台|韩|日|美)).)*$" }
   - {name: ♻️ 美国自动, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(美|US|(?i)States|America))^((?!(港|台|日|韩|新)).)*$"}
+  - {name: 🇭🇰 香港手动, type: select, include-all: true, filter: "(?i)港|hk|hongkong|hong kong"}
+  - {name: 🇯🇵 日本手动, type: select, include-all: true, filter: "(?i)日|jp|japan"}
+  - {name: 🇸🇬 新加坡手动, type: select, include-all: true, filter: "(?i)新加坡|坡|狮城|SG|Singapore"}
+  - {name: 🇺🇲 美国手动, type: select, include-all: true, filter: "(?i)美|us|unitedstates|united states"}
   - {name: 🌐 全部手动, type: select, include-all: true}
 
 
@@ -85,42 +86,28 @@ proxy-groups:
 rules:
   - RULE-SET,private,DIRECT
   - RULE-SET,private_ip,DIRECT,no-resolve
-  # 本项目收录的直连规则
   - RULE-SET,Custom_Direct_Classical,DIRECT
-  # 本项目收录的代理规则
   - RULE-SET,Custom_Proxy_Classical,🚀 手动选择
-  # 谷歌在国内可用的域名直连
   - RULE-SET,google-cn,DIRECT
-  # 国内游戏域名直连
   - RULE-SET,category-games@cn,DIRECT
-  # Steam 下载 CDN 直连
   - RULE-SET,Steam_CDN_Classical,DIRECT
-  # 各大游戏平台下载域名直连
   - RULE-SET,category-game-platforms-download,DIRECT
-  # BT Tracker 相关域名直连
   - RULE-SET,category-public-tracker,DIRECT
-  # 即时通讯软件域名
   - RULE-SET,category-communication,💬 即时通讯
-  # 社交媒体域名
   - RULE-SET,category-social-media-!cn,🌐 社交媒体
   - RULE-SET,openai,🤖 ChatGPT
   - RULE-SET,bing,🤖 Copilot
   - RULE-SET,category-ai-!cn,🤖 AI服务
   - RULE-SET,github,🚀 GitHub
-  # 测速工具域名
-  - RULE-SET,category-speedtest,🚀 测速工具
   - RULE-SET,steam,🎮 Steam
   - RULE-SET,youtube,📹 YouTube
-  # 苹果服务
   - RULE-SET,apple,🍎 苹果服务
   - RULE-SET,microsoft,Ⓜ️ 微软服务
   - RULE-SET,googlefcm,📢 谷歌FCM
   - RULE-SET,google,🇬 谷歌服务
   - RULE-SET,tiktok,🎶 TikTok
-  # Emby（已注释）
   # - GEOSITE,category-emby,🎥 Emby
   - RULE-SET,spotify,🎻 Spotify
-  # Bahamut（已注释）
   # - RULE-SET,bahamut,📺 Bahamut
   - RULE-SET,category-games,🎮 游戏平台
   - RULE-SET,category-entertainment,🌎 国外媒体
@@ -130,7 +117,6 @@ rules:
   - RULE-SET,twitter_ip,🌐 社交媒体,no-resolve
   - RULE-SET,facebook_ip,🌐 社交媒体,no-resolve
   - RULE-SET,google_ip,🇬 谷歌服务,no-resolve
-  # Netflix（已注释）
   # - GEOIP,netflix,🎥 Netflix,no-resolve
   # 国内域名兜底
   - RULE-SET,cn,DIRECT
@@ -169,11 +155,6 @@ rule-providers:
   openai: {<<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/openai.mrs"}
   bing: {<<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/bing.mrs"}
   category-ai-!cn: {<<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-ai-!cn.mrs"}
-  category-speedtest: {<<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/ookla-speedtest.mrs"}
-  telegram_ip: {<<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/telegram.mrs"}
-  twitter_ip: {<<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/twitter.mrs"}
-  facebook_ip: {<<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/facebook.mrs"}
-  google_ip: {<<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/google.mrs"}
   github: {<<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/github.mrs"}
   steam: {<<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/steam.mrs"}
   youtube: {<<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/youtube.mrs"}
@@ -189,7 +170,10 @@ rule-providers:
   gfw: {<<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/gfw.mrs"}
   cn: {<<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.mrs"}
   cn_ip: {<<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/cn.mrs"}
-
+  telegram_ip: {<<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/telegram.mrs"}
+  twitter_ip: {<<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/twitter.mrs"}
+  facebook_ip: {<<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/facebook.mrs"}
+  google_ip: {<<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/google.mrs"}
   
 
 
