@@ -53,6 +53,7 @@ proxies:
 
 pr: &pr {type: select, proxies: [🔯 新加坡故转, 🔯 香港故转, 🔯 日本故转, 🔯 美国故转, ♻️ 香港自动, ♻️ 自动选择, 🚀 手动选择, 🌐 全部手动, 🎯 全球直连, 拒绝]}
 dir: &dir {type: select, proxies: [🎯 全球直连, 🔯 新加坡故转, 🔯 香港故转, 🔯 日本故转, 🔯 美国故转, ♻️ 香港自动, 🌐 全部手动]}
+
 proxy-groups:
   - {name: 🐟 漏网之鱼, type: select, proxies: [🎯 全球直连, 🔯 新加坡故转, 🔯 香港故转, 🔯 日本故转, 🔯 美国故转, ♻️ 香港自动, 🌐 全部手动]}
 
@@ -97,8 +98,13 @@ proxy-groups:
 
 # 规则匹配
 rules:
+
+ # 拦截规则
+  #- RULE-SET,Tracking,REJECT
+  #- RULE-SET,Advertising,REJECT
+
+ # 域名规则
   - RULE-SET,private,DIRECT
-  - RULE-SET,private_ip,DIRECT,no-resolve
   - RULE-SET,Custom_Direct_Classical,DIRECT
   - RULE-SET,Custom_Proxy_Classical,🚀 手动选择
   - RULE-SET,google-cn,DIRECT
@@ -114,7 +120,8 @@ rules:
   - RULE-SET,github,🚀 GitHub
   - RULE-SET,steam,🎮 Steam
   - RULE-SET,youtube,📹 YouTube
-  - RULE-SET,apple,🍎 苹果服务
+  - RULE-SET,AppleCN,DIRECT
+  - RULE-SET,Apple,🍎 苹果服务
   - RULE-SET,microsoft,Ⓜ️ 微软服务
   - RULE-SET,googlefcm,📢 谷歌FCM
   - RULE-SET,google,🇬 谷歌服务
@@ -126,16 +133,20 @@ rules:
   - RULE-SET,category-entertainment,🌎 国外媒体
   - RULE-SET,category-ecommerce,🛒 国外电商
   - RULE-SET,gfw,🚀 手动选择
+  # - GEOIP,netflix,🎥 Netflix,no-resolve
+   
+  # IP规则
   - RULE-SET,telegram_ip,💬 即时通讯,no-resolve
   - RULE-SET,twitter_ip,🌐 社交媒体,no-resolve
   - RULE-SET,facebook_ip,🌐 社交媒体,no-resolve
   - RULE-SET,google_ip,🇬 谷歌服务,no-resolve
-  # - GEOIP,netflix,🎥 Netflix,no-resolve
-  # 国内域名兜底
+  - RULE-SET,private_ip,DIRECT,no-resolve
   - RULE-SET,cn,DIRECT
   # 国内 IP 兜底
   - RULE-SET,cn_ip,DIRECT,no-resolve
   - RULE-SET,Custom_Port,DIRECT,🔀 非标端口
+ 
+  # 兜底规则
   - MATCH,🐟 漏网之鱼
 
   
@@ -153,15 +164,12 @@ rule-anchor:
   #class: &class {type: http, interval: 86400, behavior: classical, format: text}
 
 rule-providers:
+  # 域名规则
   private: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/private.mrs"}
-  private_ip: {<<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/private.mrs"}
-  Custom_Direct_Classical: {<<: *class, url: "https://testingcf.jsdelivr.net/gh/Aethersailor/Custom_OpenClash_Rules@main/rule/Custom_Direct_Classical.yaml"}
-  Custom_Proxy_Classical: {<<: *class, url: "https://testingcf.jsdelivr.net/gh/Aethersailor/Custom_OpenClash_Rules@main/rule/Custom_Proxy_Classical.yaml"}
   google-cn: {<<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google-cn.mrs"}
   category-games@cn: {<<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-games@cn.mrs"}
-  Steam_CDN_Classical: {<<: *class, url: "https://testingcf.jsdelivr.net/gh/Aethersailor/Custom_OpenClash_Rules@main/rule/Steam_CDN_Classical.yaml"}
-  Custom_Port: {<<: *class, url: "https://testingcf.jsdelivr.net/gh/Aethersailor/Custom_OpenClash_Rules@main/rule/Custom_Port_Direct.yaml"}
   category-game-platforms-download: {<<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-game-platforms-download.mrs"}
+  AppleCN: {<<: *domain, url: https://git.imee.me/https://github.com/666OS/rules/raw/release/mihomo/domain/AppleCN.mrs}
   category-public-tracker: {<<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-public-tracker.mrs"}
   category-communication: {<<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-communication.mrs"}
   category-social-media-!cn: {<<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-social-media-!cn.mrs"}
@@ -171,7 +179,7 @@ rule-providers:
   github: {<<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/github.mrs"}
   steam: {<<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/steam.mrs"}
   youtube: {<<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/youtube.mrs"}
-  apple: {<<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/apple.mrs"}
+  Apple: {<<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/apple.mrs"}
   microsoft: {<<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/microsoft.mrs"}
   googlefcm: {<<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/googlefcm.mrs"}
   google: {<<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google.mrs"}
@@ -182,13 +190,22 @@ rule-providers:
   category-ecommerce: {<<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-ecommerce.mrs"}
   gfw: {<<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/gfw.mrs"}
   cn: {<<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.mrs"}
+  
+  # IP规则
   cn_ip: {<<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/cn.mrs"}
   telegram_ip: {<<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/telegram.mrs"}
   twitter_ip: {<<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/twitter.mrs"}
   facebook_ip: {<<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/facebook.mrs"}
   google_ip: {<<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/google.mrs"}
+  private_ip: {<<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/private.mrs"}
   
 
+  # 其他规则
+  Custom_Direct_Classical: {<<: *class, url: "https://testingcf.jsdelivr.net/gh/Aethersailor/Custom_OpenClash_Rules@main/rule/Custom_Direct_Classical.yaml"}
+  Custom_Proxy_Classical: {<<: *class, url: "https://testingcf.jsdelivr.net/gh/Aethersailor/Custom_OpenClash_Rules@main/rule/Custom_Proxy_Classical.yaml"}
+  Steam_CDN_Classical: {<<: *class, url: "https://testingcf.jsdelivr.net/gh/Aethersailor/Custom_OpenClash_Rules@main/rule/Steam_CDN_Classical.yaml"}
+  Custom_Port: {<<: *class, url: "https://testingcf.jsdelivr.net/gh/Aethersailor/Custom_OpenClash_Rules@main/rule/Custom_Port_Direct.yaml"}
+  
 
 
 
