@@ -11,7 +11,7 @@ proxy-providers:
     override: # 覆写节点加载时的一些配置项
       skip-cert-verify: true
       udp: true
-      additional-prefix: Muji
+      additional-prefix: Muji | 
     proxy: 直连
 
   provider2:
@@ -25,7 +25,7 @@ proxy-providers:
     override: # 覆写节点加载时的一些配置项
       skip-cert-verify: true
       udp: true
-      additional-prefix: cat
+      additional-prefix: Cat | 
     proxy: 直连
 
 
