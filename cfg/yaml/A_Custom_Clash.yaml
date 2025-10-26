@@ -11,7 +11,7 @@ proxy-providers:
     override: # 覆写节点加载时的一些配置项
       skip-cert-verify: true
       udp: true
-      additional-prefix: muji
+      additional-prefix: Muji
     proxy: 直连
 
     provider2:
@@ -25,7 +25,7 @@ proxy-providers:
     override: # 覆写节点加载时的一些配置项
       skip-cert-verify: true
       udp: true
-      additional-prefix: muji
+      additional-prefix: cat
     proxy: 直连
 
 
@@ -43,7 +43,7 @@ dir: &dir {type: select, proxies: [🎯 全球直连, 🔯 新加坡故转, 🔯
 proxy-groups:
   - {name: 🐟 漏网之鱼, type: select, proxies: [🎯 全球直连, 🔯 新加坡故转, 🔯 香港故转, 🔯 日本故转, 🔯 美国故转, ♻️ 香港自动, 🌐 全部手动]}
 
-  - {name: 🚀 手动选择, type: select, proxies: [♻️ 香港自动, ♻️ 日本自动, ♻️ 新加坡自动, ♻️ 美国自动, ♻️ 自动选择}
+  - {name: 🚀 手动选择, type: select, proxies: [♻️ 香港自动, ♻️ 日本自动, ♻️ 新加坡自动, ♻️ 美国自动, ♻️ 自动选择]}
   - {name: ♻️ 自动选择, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "^((?!(直连|拒绝)).)*$"}
   - {name: 💬 即时通讯,  <<: *pr}
   - {name: 🌐 社交媒体,  <<: *pr}
