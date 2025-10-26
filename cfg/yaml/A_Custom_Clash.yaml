@@ -14,7 +14,7 @@ proxy-providers:
       additional-prefix: Muji
     proxy: 直连
 
-    provider2:
+  provider2:
     url: "url"
     type: http
     interval: 86400
