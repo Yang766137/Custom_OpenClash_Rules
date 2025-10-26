@@ -75,10 +75,11 @@ proxy-groups:
   - {name: ♻️ 新加坡自动, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(新加坡|坡|狮城|SG|Singapore))^((?!(港|台|韩|日|美)).)*$" }
   - {name: ♻️ 美国自动, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(美|US|(?i)States|America))^((?!(港|台|日|韩|新)).)*$"}
   - {name: 🇭🇰 香港手动, type: select, include-all: true, filter: "(?i)港|hk|hongkong|hong kong"}
-  - {name: 🇯🇵 日本手动, type: select, include-all: true, filter: "(?i)日|jp|japan"}
+  - {name: 🇯🇵 日本手动, type: select, include-all: true, filter: "(?i)日本|jp|japan"}
   - {name: 🇸🇬 新加坡手动, type: select, include-all: true, filter: "(?i)新加坡|坡|狮城|SG|Singapore"}
   - {name: 🇺🇲 美国手动, type: select, include-all: true, filter: "(?i)美|us|unitedstates|united states"}
-  - {name: 🌐 全部手动, type: select, include-all: true}
+  - {name: 🌐 全部手动, type: select, include-all: true,filter: "^((?!(直连|拒绝)).)*$"}
+
 
 
 
