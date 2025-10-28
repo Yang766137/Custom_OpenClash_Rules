@@ -85,7 +85,7 @@ proxy-groups:
 
  
   - {name: 🔯 香港故转, type: fallback, tolerance: 20, interval: 300, proxies: [🇭🇰 香港手动, ♻️ 香港自动]}
-  - {name: 🔯 日本故转, type: fallback, tolerance: 20, interval: 300, proxies: [🇯🇵 日本手动, ♻️ 日本自动], }
+  - {name: 🔯 日本故转, type: fallback, tolerance: 20, interval: 300, proxies: [🇯🇵 日本手动, ♻️ 日本自动]}
   - {name: 🔯 新加坡故转, type: fallback, tolerance: 20, interval: 300, proxies: [🇸🇬 新加坡手动, ♻️ 新加坡自动]}
   - {name: 🔯 美国故转, type: fallback, tolerance: 20, interval: 300, proxies: [🇺🇲 美国手动, ♻️ 美国自动]}
   - {name: 🔯 台湾故转, type: fallback, tolerance: 20, interval: 300, proxies: [🇹🇼 台湾手动, ♻️ 台湾自动]}
