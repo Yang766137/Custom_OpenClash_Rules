@@ -56,12 +56,12 @@ filter: '^(?!.*(群|邀请|返利|循环|官网|客服|网站|网址|获取|订�
 # 出站策略，根据自己情况调整每个策略里分组排序，增删都可以，比如把美国自动放到第一个，比如删除香港故转，注意别漏掉表情逗号等。
 # type: select, proxies: [🎯 全球直连, 🔯 新加坡故转, 🔯 香港故转, 🔯 日本故转, 🔯 美国故转, ♻️ 香港自动, 🌐 全部手动]
 
-pr: &pr {type: select, proxies: [🔯 新加坡故转, 🔯 香港故转, 🔯 日本故转, 🔯 美国故转, 🔯 台湾故转, 🔯 韩国故转, ♻️ 香港自动, ♻️ 自动选择, 🚀 手动选择, 🎯 全球直连, 拒绝]}
-dir: &dir {type: select, proxies: [🎯 全球直连, 🔯 新加坡故转, 🔯 香港故转, 🔯 日本故转, 🔯 美国故转, ♻️ 香港自动, 🌐 全部手动]}
+pr: &pr {type: select, proxies: [🔯 新加坡故转, 🔯 香港故转, 🔯 日本故转, 🔯 美国故转, 🔯 台湾故转, ♻️ 香港自动, ♻️ 自动选择, 🚀 手动选择, 🎯 全球直连, 拒绝]}
+dir: &dir {type: select, proxies: [🎯 全球直连, 🔯 新加坡故转, 🔯 香港故转, 🔯 日本故转, 🔯 美国故转, 🔯 台湾故转, ♻️ 香港自动]}
 
 
 proxy-groups:
-  - {name: 🐟 漏网之鱼, type: select, proxies: [♻️ 香港自动, 🎯 全球直连, ♻️ 日本自动, ♻️ 新加坡自动, ♻️ 台湾自动, ♻️ 韩国自动, ♻️ 美国自动, ♻️ 自动选择}
+  - {name: 🐟 漏网之鱼, type: select, proxies: [♻️ 香港自动, 🎯 全球直连, ♻️ 日本自动, ♻️ 新加坡自动, ♻️ 台湾自动, ♻️ 韩国自动, ♻️ 美国自动, ♻️ 自动选择]}
   - {name: 🚀 手动选择, type: select, proxies: [♻️ 香港自动, ♻️ 日本自动, ♻️ 新加坡自动, ♻️ 台湾自动, ♻️ 韩国自动, ♻️ 美国自动, ♻️ 自动选择]}
   - {name: 💬 即时通讯,  <<: *pr}
   - {name: 🌐 社交媒体,  <<: *pr}
@@ -89,7 +89,7 @@ proxy-groups:
   - {name: 🔯 新加坡故转, type: fallback, tolerance: 20, interval: 300, proxies: [🇸🇬 新加坡手动, ♻️ 新加坡自动]}
   - {name: 🔯 美国故转, type: fallback, tolerance: 20, interval: 300, proxies: [🇺🇲 美国手动, ♻️ 美国自动]}
   - {name: 🔯 台湾故转, type: fallback, tolerance: 20, interval: 300, proxies: [🇹🇼 台湾手动, ♻️ 台湾自动]}
-  - {name: 🔯 韩国故转, type: fallback, tolerance: 20, interval: 300, proxies: [🇰🇷 韩国手动, ♻️ 韩国自动]}
+  #- {name: 🔯 韩国故转, type: fallback, tolerance: 20, interval: 300, proxies: [🇰🇷 韩国手动, ♻️ 韩国自动]}
   - {name: ♻️ 香港自动, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(港|HK|(?i)Hong))^((?!(台|日|韩|新|深|美)).)*$" }
   - {name: ♻️ 日本自动, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(?i)(日|🇯🇵|JP|Japan|NRT|HND|KIX|CTS|FUK))(?!.*(尼|排除2|5x)).*$"}
   - {name: ♻️ 新加坡自动, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(新加坡|坡|狮城|SG|Singapore))^((?!(港|台|韩|日|美)).)*$" }
