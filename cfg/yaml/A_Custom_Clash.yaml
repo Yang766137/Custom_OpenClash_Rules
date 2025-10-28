@@ -231,7 +231,6 @@ rule-providers:
 
 mode: rule
 port: 7890
-socks-port: 24784
 redir-port: 7892
 tproxy-port: 7895
 mixed-port: 7893
