@@ -15,7 +15,7 @@ proxy-providers:
     override: # 覆写节点加载时的一些配置项
       skip-cert-verify: true
       udp: true
-      additional-prefix: Jap | 
+      additional-prefix: Gu | 
       #additional-prefix: "前缀 |"
       #additional-suffix: "| 后缀"
 
