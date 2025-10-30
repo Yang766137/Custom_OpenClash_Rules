@@ -252,9 +252,6 @@ disable-keep-alive: false
 # 认证配置
 authentication:
 - xmhYs4Ebrmeg:rwLP29S56fJN
-
-
-
 skip-auth-prefixes:
   - 192.168.1.0/24
   - 192.168.31.0/24
@@ -317,7 +314,7 @@ tun:
 # DNS模块
 dns:
   enable: true
-  listen: 0.0.0.0:1053
+  #listen: 0.0.0.0:1053
   ipv6: true
   respect-rules: true
   enhanced-mode: fake-ip
