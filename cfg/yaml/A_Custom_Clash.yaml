@@ -15,7 +15,7 @@ proxy-providers:
     override: # 覆写节点加载时的一些配置项
       skip-cert-verify: true
       udp: true
-      additional-prefix: Gu | 
+      additional-prefix: "Gu | "
       #additional-prefix: "前缀 |"
       #additional-suffix: "| 后缀"
 
@@ -30,7 +30,7 @@ proxy-providers:
     override: # 覆写节点加载时的一些配置项
       skip-cert-verify: true
       udp: true
-      additional-prefix: XK | 
+      additional-prefix: "XK | "
     proxy: 直连
 
   provider3:
@@ -44,7 +44,7 @@ proxy-providers:
     override: # 覆写节点加载时的一些配置项
       skip-cert-verify: true
       udp: true
-      additional-prefix: Cat | 
+      additional-prefix: "Cat | "
     proxy: 直连
 
 # 节点信息
